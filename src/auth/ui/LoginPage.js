@@ -43,7 +43,12 @@ function LoginPage({ classes }) {
         Logistics Risks Calculator
       </Typography>
 
-      <LoginForm className={classes.form} />
+      <LoginForm
+        className={classes.form}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+      />
     </Page>
   );
 }
