@@ -13,6 +13,8 @@ function authenticate(values) {
       return;
     }
 
+    localStorage.setItem('isAuthenticated', 'true');
+
     resolve();
   });
 }

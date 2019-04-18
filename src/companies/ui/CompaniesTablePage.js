@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import PageWithAppBar from '../../PageWithAppBar';
+import PageWithAppBar from "../../PageWithAppBar";
 
-import CompaniesTable from './table/CompaniesTable';
-import getCompanies from '../domain/services/getCompanies';
+import CompaniesTable from "./table/CompaniesTable";
+import getCompanies from "../domain/services/getCompanies";
+import AppMenu from "../../menu/ui/AppMenu";
 
 
 function CompaniesTablePage() {
   const [state, setState] = useState({
     companies: [],
     isLoading: false,
-    risks: [],
+    risks: []
   });
 
   const fetchCompanies = async () => {
@@ -27,9 +28,13 @@ function CompaniesTablePage() {
   }, []);
 
   return (
-    <PageWithAppBar isLoading={state.isLoading}>
-      <CompaniesTable companies={state.companies} />
-    </PageWithAppBar>
+    <AppMenu>
+      <PageWithAppBar
+        isLoading={state.isLoading}
+      >
+        <CompaniesTable companies={state.companies}/>
+      </PageWithAppBar>
+    </AppMenu>
   );
 }
 
