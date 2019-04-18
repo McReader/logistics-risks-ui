@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import CompaniesTablePage from './companies/ui/CompaniesTablePage';
 import CompanyDetailsPage from './companies/ui/CompanyDetailsPage';
