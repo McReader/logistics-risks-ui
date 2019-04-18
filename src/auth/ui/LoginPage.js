@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
+import { FORM_ERROR } from "final-form";
 
 import Page from '../../Page';
 
+import authenticate from '../domain/services/authenticate';
+
 import LoginForm from './form/LoginForm';
+import UserNotFoundError from "../domain/errors/UserNotFoundError";
+import IncorrectPasswordError from "../domain/errors/IncorrectPasswordError";
 
 
 const styles = (theme) => ({
@@ -17,7 +22,22 @@ const styles = (theme) => ({
   }
 });
 
-function LoginPage({ classes }) {
+function LoginPage({ classes, history }) {
+  const onSubmit = async (values) => {
+    try {
+      await authenticate(values);
+      history.replace({ pathname: '/' });
+    } catch(e) {
+      if (e instanceof UserNotFoundError) {
+        return { login: e.message };
+      } else if (e instanceof IncorrectPasswordError) {
+        return { [FORM_ERROR]: 'Incorrect credentials' };
+      }
+
+      throw e;
+    }
+  };
+
   return (
     <Page classes={{ root: classes.root }}>
       <Typography
@@ -45,9 +65,7 @@ function LoginPage({ classes }) {
 
       <LoginForm
         className={classes.form}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={onSubmit}
       />
     </Page>
   );

@@ -4,6 +4,7 @@ import { Form, Field } from "react-final-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 
 const required = (value) => Boolean(value) ? undefined : 'Value is required';
@@ -11,7 +12,7 @@ const required = (value) => Boolean(value) ? undefined : 'Value is required';
 function LoginForm({ className, onSubmit }) {
   return (
     <Form onSubmit={onSubmit}>
-      {({ handleSubmit }) => (
+      {({ handleSubmit, submitError, submitting }) => (
         <Grid
           alignContent="center"
           className={className}
@@ -20,18 +21,29 @@ function LoginForm({ className, onSubmit }) {
           onSubmit={handleSubmit}
           spacing={40}
         >
+          {submitError ? (
+            <Grid
+              color="error"
+              component={Typography}
+              item
+              xs={12}
+            >
+              {submitError}
+            </Grid>
+          ) : null}
+
           <Grid item xs={12}>
             <Field
               name="login"
               validate={required}
             >
-              {({ input, meta: { error, touched } }) => (
+              {({ input, meta: { error, touched, submitError } }) => (
                 <TextField
                   {...input}
                   autoFocus
-                  error={touched && Boolean(error)}
+                  error={touched && Boolean(error || submitError)}
                   fullWidth
-                  helperText={touched && error}
+                  helperText={touched && (error || submitError)}
                   placeholder="Login"
                 />
               )}
@@ -59,6 +71,7 @@ function LoginForm({ className, onSubmit }) {
           <Grid item xs={12}>
             <Button
               color="primary"
+              disabled={submitting}
               fullWidth
               type="submit"
               variant="contained"

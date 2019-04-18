@@ -57,7 +57,7 @@ function CompaniesTable(props) {
               <TableCell align="center">{company.lastUpdated.toLocaleString()}</TableCell>
               <TableCell align="right">
                 <Tooltip title="Recalculate">
-                  <Link to={`/details/${company.id}`}>
+                  <Link to={`/company/${company.id}`}>
                     <IconButton aria-label="Recalculate">
                       <EditIcon fontSize="small"/>
                     </IconButton>
