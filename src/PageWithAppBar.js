@@ -21,9 +21,9 @@ const styles = {
 };
 
 
-function PageWithAppBar({ appBar, classes, children, isLoading }) {
+function PageWithAppBar({ appBar, className, classes, children, isLoading }) {
   return (
-    <Page>
+    <Page className={className}>
       { appBar }
       <div className={classes.gridContainer}>
         {isLoading ? <CircularProgress className={classes.progress}/> : children}
@@ -35,6 +35,7 @@ function PageWithAppBar({ appBar, classes, children, isLoading }) {
 PageWithAppBar.propTypes = {
   appBar: PropTypes.node,
   children: PropTypes.node,
+  className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   isLoading: PropTypes.bool,
 };

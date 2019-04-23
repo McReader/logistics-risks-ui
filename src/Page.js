@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 
@@ -11,8 +12,8 @@ const styles = {
   },
 };
 
-function Page({ classes, children }) {
-  return <div className={classes.root}>{ children }</div>
+function Page({ className, classes, children }) {
+  return <div className={classnames(classes.root, className)}>{ children }</div>
 }
 
 export default withStyles(styles)(Page);

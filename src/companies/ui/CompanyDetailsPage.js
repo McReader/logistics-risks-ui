@@ -7,6 +7,7 @@ import SimpleAppBar from "../../SimpleAppBar";
 import getCompanyById from "../domain/services/getCompanyById";
 import CompanyDetails from "./details/CompanyDetails";
 import AppMenu from "../../menu/ui/AppMenu";
+import FormPage from "../../FormPage";
 
 
 function CompanyDetailsPage({ match }) {
@@ -17,6 +18,8 @@ function CompanyDetailsPage({ match }) {
 
   const companyId = Number(match.params.id);
   const { company, isLoading } = state;
+
+  const companyName = isLoading ? '' : company.name;
 
   const fetchCompany = async () => {
     setState(state => ({ ...state, isLoading: true }));
@@ -40,20 +43,19 @@ function CompanyDetailsPage({ match }) {
 
   const appBar = (
     <SimpleAppBar
-      title={isLoading ? "Please wait..." : (company.name || undefined)}
+      title={isLoading ? "Please wait..." : companyName}
     />
   );
 
   return (
     <AppMenu>
-      <PageWithAppBar
+      <FormPage
         appBar={appBar}
         isLoading={state.isLoading}
+        title={`Edit ${companyName}`}
       >
-        {!isLoading && company ? (
-          <CompanyDetails company={company}/>
-        ) : null}
-      </PageWithAppBar>
+        <CompanyDetails company={company}/>
+      </FormPage>
     </AppMenu>
   );
 }
