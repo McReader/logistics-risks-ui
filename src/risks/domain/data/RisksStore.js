@@ -1,13 +1,14 @@
-import { getId } from "../models/Company";
+import { getId } from "../models/Risk";
+import { getByCompanyId } from "../models/RisksCollection";
 
 
-const CompaniesStore = ({ localStorage, parseList = JSON.parse, formatList = JSON.stringify }) => ({
+const RisksStore = ({ localStorage, parseList = JSON.parse, formatList = JSON.stringify }) => ({
   getList() {
-    return Promise.resolve(parseList(localStorage.getItem('companies')) || []);
+    return Promise.resolve(parseList(localStorage.getItem('risks')) || []);
   },
-  async getById(id) {
+  async getByCompanyId(companyId) {
     const list = await this.getList();
-    return Promise.resolve(list.find(item => getId(item) === id));
+    return Promise.resolve(getByCompanyId(companyId, list));
   },
   async saveItem(item) {
     const list = await this.getList();
@@ -26,9 +27,10 @@ const CompaniesStore = ({ localStorage, parseList = JSON.parse, formatList = JSO
     return this.saveList(updatedList);
   },
   saveList(list) {
-    localStorage.setItem('companies', formatList(list));
+    localStorage.setItem('risks', formatList(list));
     return Promise.resolve();
   },
 });
 
-export default CompaniesStore;
+export default RisksStore;
+

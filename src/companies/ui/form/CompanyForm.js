@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Form, Field } from "react-final-form";
-import format from 'date-fns/format';
 
 import { required } from '../../../form/ui/validators';
 

@@ -11,9 +11,9 @@ function CompaniesTablePage({ history }) {
   const [state, setState] = useState({
     companies: [],
     isLoading: false,
-    risks: []
+    risks: [],
   });
-  const { services: { companies: companiesService } } = useContext(AppContext);
+  const { services: { companies: companiesService, risks: risksService } } = useContext(AppContext);
 
   const fetchCompanies = async () => {
     setState({ isLoading: true });
@@ -24,12 +24,28 @@ function CompaniesTablePage({ history }) {
     });
   };
 
+  const fetchRisks = async () => {
+    const risks = await risksService.getList();
+    setState(state => ({ ...state, risks }));
+  };
+
   useEffect(() => {
     fetchCompanies();
+    risksService.subscribe(() => {
+      fetchRisks();
+    });
+    fetchRisks();
+    return () => {
+      risksService.unsubscribe();
+    };
   }, []);
 
   const onAddButtonClick = () => {
     history.push({ pathname: '/company/' });
+  };
+
+  const onRecalculate = (categoryId) => {
+    risksService.calculate(categoryId);
   };
 
   return (
@@ -40,6 +56,8 @@ function CompaniesTablePage({ history }) {
         <CompaniesTable
           companies={state.companies}
           onAddButtonClick={onAddButtonClick}
+          onRecalculate={onRecalculate}
+          risks={state.risks}
         />
       </PageWithAppBar>
     </AppMenu>
