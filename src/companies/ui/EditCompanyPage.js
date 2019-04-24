@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import SimpleAppBar from "../../SimpleAppBar";
 
-import getCompanyById from "../domain/services/getCompanyById";
 import AppMenu from "../../menu/ui/AppMenu";
 import FormPage from "../../FormPage";
 import CompanyForm from "./form/CompanyForm";
+import AppContext from "../../AppContext";
 
 
-function CompanyDetailsPage({ match, history }) {
+function EditCompanyPage({ match, history }) {
   const [state, setState] = useState({
     company: null,
     isLoading: true
   });
+  const { services: { companies: companiesService } } = useContext(AppContext);
 
-  const companyId = Number(match.params.id);
+  const companyId = match.params.id;
   const { company, isLoading } = state;
 
   const companyName = isLoading ? '' : company.name;
@@ -23,7 +24,7 @@ function CompanyDetailsPage({ match, history }) {
   const fetchCompany = async () => {
     setState(state => ({ ...state, isLoading: true }));
     try {
-      const result = await getCompanyById(companyId);
+      const result = await companiesService.getCompanyById(companyId);
       setState(state => ({
         ...state,
         company: result
@@ -48,11 +49,12 @@ function CompanyDetailsPage({ match, history }) {
 
   const onReset = (e) => {
     e.preventDefault();
-    history.goBack();
+    history.replace({ pathname: '/' });
   };
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const onSubmit = async (values) => {
+    await companiesService.editCompany(company, values);
+    history.replace({ pathname: '/' });
   };
 
   return (
@@ -72,7 +74,7 @@ function CompanyDetailsPage({ match, history }) {
   );
 }
 
-CompanyDetailsPage.propTypes = {
+EditCompanyPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
@@ -83,4 +85,4 @@ CompanyDetailsPage.propTypes = {
   }).isRequired,
 };
 
-export default CompanyDetailsPage;
+export default EditCompanyPage;

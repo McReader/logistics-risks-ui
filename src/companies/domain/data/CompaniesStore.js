@@ -1,25 +1,32 @@
-import formatDate from "../../../shared/date/formatDate";
+import toISOString from "../../../shared/date/toISOString";
 import { getId } from "../models/Company";
 
 
 const CompaniesStore = ({ localStorage, parseList = JSON.parse, formatList = JSON.stringify }) => ({
-  getList: () => {
-    return Promise.resolve(parseList(localStorage.getItem('companies')));
+  getList() {
+    return Promise.resolve(parseList(localStorage.getItem('companies')) || []);
   },
-  getById: (id) => {
-    const list = this.getList();
+  async getById(id) {
+    const list = await this.getList();
     return Promise.resolve(list.find(item => getId(item) === id));
   },
-  saveItem: (item) => {
-    const list = this.getList();
-    const itemWithUpdatedMeta = {
-      ...item,
-      lastUpdatedDate: formatDate(new Date()),
-    };
-    const updatedList = [...list, itemWithUpdatedMeta];
+  async saveItem(item) {
+    const list = await this.getList();
+    const updatedList = [...list, item];
     return this.saveList(updatedList);
   },
-  saveList: (list) => {
+  async updateItem(item) {
+    const list = await this.getList();
+    const updatedList = list.map((i) => {
+      if (getId(i) !== getId(item)) {
+        return i;
+      }
+
+      return item;
+    });
+    return this.saveList(updatedList);
+  },
+  saveList(list) {
     localStorage.setItem('companies', formatList(list));
     return Promise.resolve();
   },

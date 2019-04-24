@@ -16,6 +16,8 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 
 import { COMPANY_SHAPE } from '../constants';
+import formatDate from "../../../shared/date/formatDate";
+import { getFoundationDate, getId, getName } from "../../domain/models/Company";
 
 
 const styles = theme => ({
@@ -43,21 +45,21 @@ function CompaniesTable(props) {
           <TableRow>
             <TableCell>Company name</TableCell>
             <TableCell align="center">Risk</TableCell>
-            <TableCell align="center">Last updated</TableCell>
+            <TableCell align="center">Foundation date</TableCell>
             <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {companies.map(company => (
-            <TableRow key={company.id}>
+            <TableRow key={getId(company)}>
               <TableCell component="th" scope="row">
-                {company.name}
+                {getName(company)}
               </TableCell>
               <TableCell align="center">{company.risk}%</TableCell>
-              <TableCell align="center">{company.lastUpdated.toLocaleString()}</TableCell>
+              <TableCell align="center">{formatDate(getFoundationDate(company))}</TableCell>
               <TableCell align="right">
                 <Tooltip title="Recalculate">
-                  <Link to={`/company/${company.id}`}>
+                  <Link to={`/company/${getId(company)}`}>
                     <IconButton aria-label="Recalculate">
                       <EditIcon fontSize="small"/>
                     </IconButton>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import PageWithAppBar from "../../PageWithAppBar";
 
 import CompaniesTable from "./table/CompaniesTable";
-import getCompanies from "../domain/services/getCompanies";
 import AppMenu from "../../menu/ui/AppMenu";
+import AppContext from "../../AppContext";
 
 
 function CompaniesTablePage({ history }) {
@@ -13,10 +13,11 @@ function CompaniesTablePage({ history }) {
     isLoading: false,
     risks: []
   });
+  const { services: { companies: companiesService } } = useContext(AppContext);
 
   const fetchCompanies = async () => {
     setState({ isLoading: true });
-    const companies = await getCompanies();
+    const companies = await companiesService.getCompanies();
     setState({
       companies,
       isLoading: false

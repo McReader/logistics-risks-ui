@@ -1,18 +1,41 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from 'prop-types';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Form, Field } from "react-final-form";
+import format from 'date-fns/format';
 
 import { required } from '../../../form/ui/validators';
 
+import { getFoundationDate } from "../../domain/models/Company";
+
 import { COMPANY_SHAPE } from "../constants";
+import formatDate from "../../../shared/date/formatDate";
 
 
 export default function CompanyForm({ company, onReset, onSubmit }) {
+  const onSubmitAdapter = (values) => {
+    onSubmit({
+      ...values,
+      foundationDate: new Date(values.foundationDate),
+      charterCapital: Number(values.charterCapital),
+    });
+  };
+
+  const formattedCompany = useMemo(() => {
+    if (!company) {
+      return company;
+    }
+
+    return {
+      ...company,
+      foundationDate: formatDate(getFoundationDate(company)),
+    };
+  }, [company]);
+
   return (
-    <Form initialValues={company} onSubmit={onSubmit} >
+    <Form initialValues={formattedCompany} onSubmit={onSubmitAdapter} >
       {({ handleSubmit, submitting }) => (
         <Grid
           component="form"

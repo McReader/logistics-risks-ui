@@ -1,13 +1,22 @@
 import cuid from 'cuid';
-import formatDate from "../../../shared/date/formatDate";
+import toISOString from "../../../shared/date/toISOString";
 
 
 export const create = ({ name, foundationDate, charterCapital }) => ({
   id: cuid(),
   charterCapital,
   foundationDate,
+  lastUpdatedDate: null,
   name,
-  createdDate: formatDate(new Date()),
+  createdDate: toISOString(new Date()),
+});
+
+export const update = ({ name, foundationDate, charterCapital }, company) => ({
+  ...company,
+  charterCapital,
+  foundationDate,
+  lastUpdatedDate: toISOString(new Date()),
+  name,
 });
 
 export const getId = ({ id }) => id;

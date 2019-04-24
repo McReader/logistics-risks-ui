@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 export default function formatDate(date) {
-  return date.toISOString();
+  return format(date, 'MM/DD/YYYY');
 }
