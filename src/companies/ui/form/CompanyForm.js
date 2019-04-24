@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Form, Field } from "react-final-form";
 
-import { required } from '../../../form/ui/validators';
+import { required, isDataValid } from '../../../form/ui/validators';
 
 import { getFoundationDate } from "../../domain/models/Company";
 
@@ -64,7 +64,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
           <Grid item>
             <Field
               name="foundationDate"
-              validate={required}
+              validate={value => required(value) || isDataValid(value)}
             >
               {({ input, meta: { error, touched } }) => (
                 <TextField
