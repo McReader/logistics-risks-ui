@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import CompaniesTablePage from "./companies/ui/CompaniesTablePage";
 import CompanyDetailsPage from "./companies/ui/CompanyDetailsPage";
+import CreateCompanyPage from "./companies/ui/CreateCompanyPage";
 import LoginPage from "./auth/ui/LoginPage";
 import SecureRoute from "./auth/ui/SecureRoute";
 
@@ -18,6 +19,7 @@ function App() {
 
           <SecureRoute>
             <Route exact path="/" component={CompaniesTablePage}/>
+            <Route exact path="/company/" component={CreateCompanyPage}/>
             <Route path="/company/:id" component={CompanyDetailsPage}/>
           </SecureRoute>
         </Switch>

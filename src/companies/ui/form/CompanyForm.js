@@ -12,7 +12,7 @@ import { COMPANY_SHAPE } from "../constants";
 
 export default function CompanyForm({ company, onReset, onSubmit }) {
   return (
-    <Form initialValues={company} onSubmit={onSubmit}>
+    <Form initialValues={company} onSubmit={onSubmit} >
       {({ handleSubmit, submitting }) => (
         <Grid
           component="form"
@@ -23,12 +23,17 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
           spacing={40}
         >
           <Grid item>
-            <Field name="name">
-              {({ input }) => (
+            <Field
+              name="name"
+              validate={required}
+            >
+              {({ input, meta: { error, touched } }) => (
                 <TextField
                   {...input}
                   autoFocus
+                  error={touched && Boolean(error)}
                   fullWidth
+                  helperText={touched && error}
                   label="Name"
                 />
               )}
@@ -46,6 +51,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
                   fullWidth
                   helperText={touched && error}
                   label="Foundation date"
+                  placeholder="2/25/2012"
                 />
               )}
             </Field>
@@ -97,7 +103,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
 }
 
 CompanyForm.propTypes = {
-  company: COMPANY_SHAPE.isRequired,
+  company: COMPANY_SHAPE,
   onReset: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

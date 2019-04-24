@@ -7,7 +7,7 @@ import getCompanies from "../domain/services/getCompanies";
 import AppMenu from "../../menu/ui/AppMenu";
 
 
-function CompaniesTablePage() {
+function CompaniesTablePage({ history }) {
   const [state, setState] = useState({
     companies: [],
     isLoading: false,
@@ -27,12 +27,19 @@ function CompaniesTablePage() {
     fetchCompanies();
   }, []);
 
+  const onAddButtonClick = () => {
+    history.push({ pathname: '/company/' });
+  };
+
   return (
     <AppMenu>
       <PageWithAppBar
         isLoading={state.isLoading}
       >
-        <CompaniesTable companies={state.companies}/>
+        <CompaniesTable
+          companies={state.companies}
+          onAddButtonClick={onAddButtonClick}
+        />
       </PageWithAppBar>
     </AppMenu>
   );

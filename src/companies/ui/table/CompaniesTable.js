@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 function CompaniesTable(props) {
-  const { classes, companies } = props;
+  const { classes, companies, onAddButtonClick } = props;
 
   return (
     <Paper className={classes.root}>
@@ -76,6 +76,7 @@ function CompaniesTable(props) {
       <Fab
         className={classes.fab}
         color="primary"
+        onClick={onAddButtonClick}
       >
         <AddIcon />
       </Fab>
@@ -86,6 +87,7 @@ function CompaniesTable(props) {
 CompaniesTable.propTypes = {
   classes: PropTypes.object.isRequired,
   companies: PropTypes.arrayOf(COMPANY_SHAPE),
+  onAddButtonClick: PropTypes.func,
 };
 
 CompaniesTable.defaultProps = {
