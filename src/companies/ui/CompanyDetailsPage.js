@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import PageWithAppBar from "../../PageWithAppBar";
 import SimpleAppBar from "../../SimpleAppBar";
 
 import getCompanyById from "../domain/services/getCompanyById";
-import CompanyDetails from "./details/CompanyDetails";
 import AppMenu from "../../menu/ui/AppMenu";
 import FormPage from "../../FormPage";
+import CompanyForm from "./form/CompanyForm";
 
 
-function CompanyDetailsPage({ match }) {
+function CompanyDetailsPage({ match, history }) {
   const [state, setState] = useState({
     company: null,
     isLoading: true
@@ -47,6 +46,15 @@ function CompanyDetailsPage({ match }) {
     />
   );
 
+  const onReset = (e) => {
+    e.preventDefault();
+    history.goBack();
+  };
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
     <AppMenu>
       <FormPage
@@ -54,7 +62,11 @@ function CompanyDetailsPage({ match }) {
         isLoading={state.isLoading}
         title={`Edit ${companyName}`}
       >
-        <CompanyDetails company={company}/>
+        <CompanyForm
+          company={company}
+          onReset={onReset}
+          onSubmit={onSubmit}
+        />
       </FormPage>
     </AppMenu>
   );
@@ -65,7 +77,10 @@ CompanyDetailsPage.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
 export default CompanyDetailsPage;
