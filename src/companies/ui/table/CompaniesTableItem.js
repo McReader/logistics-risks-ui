@@ -9,12 +9,19 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import EditIcon from '@material-ui/icons/Edit';
 
 import formatDate from '../../../shared/date/formatDate';
+import isHighRisk from '../../../risks/domain/services/isHighRisk';
 
 import { getFoundationDate, getId, getName } from '../../domain/models/Company';
 
 const styles = {
   tableCellRisk: {
-    backgroundColor: ({ risk }) => (risk && risk.value > 50 ? 'red' : 'green')
+    backgroundColor: ({ risk }) => {
+      if (!risk) {
+        return null;
+      }
+
+      return isHighRisk(risk) ? 'red' : 'green';
+    }
   }
 };
 
