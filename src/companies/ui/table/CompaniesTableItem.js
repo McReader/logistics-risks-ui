@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import formatDate from '../../../shared/date/formatDate';
 import isHighRisk from '../../../risks/domain/services/isHighRisk';
+import { getValue } from '../../../risks/domain/models/Risk';
 
 import { getFoundationDate, getId, getName } from '../../domain/models/Company';
 
@@ -33,7 +34,7 @@ function CompaniesTableItem({ classes, company, onRecalculate, risk }) {
         {getName(company)}
       </TableCell>
       <TableCell align="center" classes={{ root: classes.tableCellRisk }}>
-        {risk ? `${risk.value}%` : '-'}
+        {risk ? `${getValue(risk)}%` : '-'}
       </TableCell>
       <TableCell align="center">
         {formatDate(getFoundationDate(company))}
