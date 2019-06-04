@@ -1,5 +1,5 @@
-import { getId } from "../models/Risk";
-import { getByCompanyId } from "../models/RisksCollection";
+import { getId } from "@logistics-calc/risks/src/domain/models/Risk";
+import { getByCompanyId } from "@logistics-calc/risks/src/domain/models/RisksCollection";
 
 
 const RisksStore = ({ localStorage, parseList = JSON.parse, formatList = JSON.stringify }) => ({

@@ -1,24 +1,25 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Form, Field } from "react-final-form";
+import { Form, Field } from 'react-final-form';
+
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import formatDate from '@logistics-calc/date-utils/src/formatDate';
 
 import { required, isDataValid } from '../../../form/ui/validators';
 
-import { getFoundationDate } from "../../domain/models/Company";
+import { getFoundationDate } from '../../domain/models/Company';
 
-import { COMPANY_SHAPE } from "../constants";
-import formatDate from "../../../shared/date/formatDate";
-
+import { COMPANY_SHAPE } from '../constants';
 
 export default function CompanyForm({ company, onReset, onSubmit }) {
-  const onSubmitAdapter = (values) => {
+  const onSubmitAdapter = values => {
     onSubmit({
       ...values,
       foundationDate: new Date(values.foundationDate),
-      charterCapital: Number(values.charterCapital),
+      charterCapital: Number(values.charterCapital)
     });
   };
 
@@ -29,12 +30,12 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
 
     return {
       ...company,
-      foundationDate: formatDate(getFoundationDate(company)),
+      foundationDate: formatDate(getFoundationDate(company))
     };
   }, [company]);
 
   return (
-    <Form initialValues={formattedCompany} onSubmit={onSubmitAdapter} >
+    <Form initialValues={formattedCompany} onSubmit={onSubmitAdapter}>
       {({ handleSubmit, submitting }) => (
         <Grid
           component="form"
@@ -45,10 +46,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
           spacing={40}
         >
           <Grid item>
-            <Field
-              name="name"
-              validate={required}
-            >
+            <Field name="name" validate={required}>
               {({ input, meta: { error, touched } }) => (
                 <TextField
                   {...input}
@@ -79,10 +77,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
             </Field>
           </Grid>
           <Grid item>
-            <Field
-              name="charterCapital"
-              validate={required}
-            >
+            <Field name="charterCapital" validate={required}>
               {({ input, meta: { error, touched } }) => (
                 <TextField
                   {...input}
@@ -96,15 +91,9 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
             </Field>
           </Grid>
           <Grid item>
-            <Grid
-              container
-              justify="flex-end"
-              spacing={16}
-            >
+            <Grid container justify="flex-end" spacing={16}>
               <Grid item>
-                <Button type="reset">
-                  Cancel
-                </Button>
+                <Button type="reset">Cancel</Button>
               </Grid>
               <Grid item>
                 <Button
@@ -127,5 +116,5 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
 CompanyForm.propTypes = {
   company: COMPANY_SHAPE,
   onReset: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };

@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "http://mcreader.github.io/logistics-risks-ui",
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
+    "@logistics-calc/date-utils": "1.0.0",
+    "@logistics-calc/risks": "1.0.0",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "@material-ui/styles": "^4.0.2",

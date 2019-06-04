@@ -8,9 +8,10 @@ import TableRow from '@material-ui/core/TableRow';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import EditIcon from '@material-ui/icons/Edit';
 
-import formatDate from '../../../shared/date/formatDate';
-import isHighRisk from '../../../risks/domain/services/isHighRisk';
-import { getValue } from '../../../risks/domain/models/Risk';
+import formatDate from '@logistics-calc/date-utils/src/formatDate';
+
+import isHighRisk from '@logistics-calc/risks/src/domain/services/isHighRisk';
+import { getValue } from '@logistics-calc/risks/src/domain/models/Risk';
 
 import { getFoundationDate, getId, getName } from '../../domain/models/Company';
 

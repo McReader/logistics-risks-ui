@@ -1,31 +1,31 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles/index";
-import Table from "@material-ui/core/Table/index";
-import TableBody from "@material-ui/core/TableBody/index";
-import TableCell from "@material-ui/core/TableCell/index";
-import TableHead from "@material-ui/core/TableHead/index";
-import TableRow from "@material-ui/core/TableRow/index";
-import Fab from "@material-ui/core/Fab/index";
-import Paper from "@material-ui/core/Paper/index";
-import AddIcon from "@material-ui/icons/Add";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles/index';
+import Table from '@material-ui/core/Table/index';
+import TableBody from '@material-ui/core/TableBody/index';
+import TableCell from '@material-ui/core/TableCell/index';
+import TableHead from '@material-ui/core/TableHead/index';
+import TableRow from '@material-ui/core/TableRow/index';
+import Fab from '@material-ui/core/Fab/index';
+import Paper from '@material-ui/core/Paper/index';
+import AddIcon from '@material-ui/icons/Add';
 
-import { COMPANY_SHAPE } from "../constants";
-import { getId } from "../../domain/models/Company";
-import CompaniesTableItem from "./CompaniesTableItem";
-import { getByCompanyId } from "../../../risks/domain/models/RisksCollection";
+import { getByCompanyId } from '@logistics-calc/risks/src/domain/models/RisksCollection';
 
+import { COMPANY_SHAPE } from '../constants';
+import { getId } from '../../domain/models/Company';
+import CompaniesTableItem from './CompaniesTableItem';
 
 const styles = theme => ({
   root: {
-    width: "100%",
-    overflowX: "auto"
+    width: '100%',
+    overflowX: 'auto'
   },
   table: {
     minWidth: 700
   },
   fab: {
-    position: "absolute",
+    position: 'absolute',
     bottom: theme.spacing.unit * 4,
     right: theme.spacing.unit * 4
   }
@@ -42,11 +42,11 @@ function CompaniesTable(props) {
             <TableCell>Company name</TableCell>
             <TableCell align="center">Risk</TableCell>
             <TableCell align="center">Foundation date</TableCell>
-            <TableCell/>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
-          {companies.map((company) => {
+          {companies.map(company => {
             const companyId = getId(company);
             return (
               <CompaniesTableItem
@@ -56,16 +56,11 @@ function CompaniesTable(props) {
                 risk={getByCompanyId(companyId, risks)}
               />
             );
-          })
-          }
+          })}
         </TableBody>
       </Table>
-      <Fab
-        className={classes.fab}
-        color="primary"
-        onClick={onAddButtonClick}
-      >
-        <AddIcon/>
+      <Fab className={classes.fab} color="primary" onClick={onAddButtonClick}>
+        <AddIcon />
       </Fab>
     </Paper>
   );

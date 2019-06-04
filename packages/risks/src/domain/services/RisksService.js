@@ -1,4 +1,4 @@
-import { create, update } from "../models/Risk";
+import { create, update } from "@logistics-calc/risks/src/domain/models/Risk";
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);

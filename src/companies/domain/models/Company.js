@@ -1,6 +1,5 @@
 import cuid from 'cuid';
-import toISOString from "../../../shared/date/toISOString";
-
+import toISOString from '@logistics-calc/date-utils/src/toISOString';
 
 export const create = ({ name, foundationDate, charterCapital }) => ({
   id: cuid(),
@@ -8,7 +7,7 @@ export const create = ({ name, foundationDate, charterCapital }) => ({
   foundationDate,
   lastUpdatedDate: null,
   name,
-  createdDate: toISOString(new Date()),
+  createdDate: toISOString(new Date())
 });
 
 export const update = ({ name, foundationDate, charterCapital }, company) => ({
@@ -16,7 +15,7 @@ export const update = ({ name, foundationDate, charterCapital }, company) => ({
   charterCapital,
   foundationDate,
   lastUpdatedDate: toISOString(new Date()),
-  name,
+  name
 });
 
 export const getId = ({ id }) => id;

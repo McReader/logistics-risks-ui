@@ -1,6 +1,5 @@
 import cuid from "cuid";
-
-import toISOString from "../../../shared/date/toISOString";
+import toISOString from "@logistics-calc/date-utils/src/toISOString";
 
 
 export const create = ({ companyId, value }) => ({
