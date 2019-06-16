@@ -1,32 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
-import PageWithAppBar from "../../PageWithAppBar";
+import lensProp from 'ramda/es/lensProp';
+import view from 'ramda/es/view';
+import map from 'ramda/es/map';
+import pipe from 'ramda/es/pipe';
 
-import CompaniesTable from "./table/CompaniesTable";
-import AppMenu from "../../menu/ui/AppMenu";
-import AppContext from "../../AppContext";
+import PageWithAppBar from '../../PageWithAppBar';
 
+import CompaniesTable from './table/CompaniesTable';
+import AppMenu from '../../menu/ui/AppMenu';
+import AppContext from '../../AppContext';
+
+const getRows = view(lensProp('rows'));
+const mapDocs = map(view(lensProp('doc')));
+const selectDocumentsList = pipe(
+  getRows,
+  mapDocs
+);
 
 function CompaniesTablePage({ history }) {
   const [state, setState] = useState({
     companies: [],
     isLoading: false,
-    risks: [],
+    risks: []
   });
-  const { services: { companies: companiesService, risks: risksService } } = useContext(AppContext);
+  const {
+    services: { companies: companiesService, risks: risksService }
+  } = useContext(AppContext);
 
   const fetchCompanies = async () => {
     setState({ isLoading: true });
-    const companies = await companiesService.getCompanies();
+    const response = await companiesService.getCompanies();
     setState({
-      companies,
+      companies: selectDocumentsList(response),
       isLoading: false
     });
   };
 
   const fetchRisks = async () => {
-    const risks = await risksService.getList();
-    setState(state => ({ ...state, risks }));
+    const response = await risksService.getList();
+    setState(state => ({ ...state, risks: selectDocumentsList(response) }));
   };
 
   useEffect(() => {
@@ -44,15 +57,13 @@ function CompaniesTablePage({ history }) {
     history.push({ pathname: '/company/' });
   };
 
-  const onRecalculate = (categoryId) => {
+  const onRecalculate = categoryId => {
     risksService.calculate(categoryId);
   };
 
   return (
     <AppMenu>
-      <PageWithAppBar
-        isLoading={state.isLoading}
-      >
+      <PageWithAppBar isLoading={state.isLoading}>
         <CompaniesTable
           companies={state.companies}
           onAddButtonClick={onAddButtonClick}

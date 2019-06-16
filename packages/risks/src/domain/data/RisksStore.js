@@ -1,36 +1,41 @@
-import { getId } from "@logistics-calc/risks/src/domain/models/Risk";
-import { getByCompanyId } from "@logistics-calc/risks/src/domain/models/RisksCollection";
+import PouchDB from "pouchdb";
+import PouchDBFind from "pouchdb-find";
+
+import view from 'ramda/es/view';
+import lensProp from "ramda/es/lensProp";
+import pipe from "ramda/es/pipe"
+import head from "ramda/es/head";
+
+PouchDB.plugin(PouchDBFind);
 
 
-const RisksStore = ({ localStorage, parseList = JSON.parse, formatList = JSON.stringify }) => ({
-  getList() {
-    return Promise.resolve(parseList(localStorage.getItem('risks')) || []);
-  },
-  async getByCompanyId(companyId) {
-    const list = await this.getList();
-    return Promise.resolve(getByCompanyId(companyId, list));
-  },
-  async saveItem(item) {
-    const list = await this.getList();
-    const updatedList = [...list, item];
-    return this.saveList(updatedList);
-  },
-  async updateItem(item) {
-    const list = await this.getList();
-    const updatedList = list.map((i) => {
-      if (getId(i) !== getId(item)) {
-        return i;
-      }
+const RisksStore = ({ dbUrl }) => {
+  const db = new PouchDB(`${dbUrl}/risks`);
 
-      return item;
-    });
-    return this.saveList(updatedList);
-  },
-  saveList(list) {
-    localStorage.setItem('risks', formatList(list));
-    return Promise.resolve();
-  },
-});
+  return ({
+    getList() {
+      return db.allDocs({ include_docs: true });
+    },
+    async getByCompanyId(companyId) {
+      const getFirstResult = pipe(
+        view(lensProp('docs')),
+        head,
+      );
+
+      return db
+        .find({
+          selector: { companyId }
+        })
+        .then(getFirstResult);
+    },
+    async saveItem(item) {
+      return db.post(item);
+    },
+    async updateItem(item) {
+      return db.put(item);
+    }
+  });
+};
 
 export default RisksStore;
 

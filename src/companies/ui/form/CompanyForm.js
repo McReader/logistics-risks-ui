@@ -7,10 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import formatDate from '@logistics-calc/date-utils/src/formatDate';
+import { getFoundationDate } from '@logistics-calc/companies/src/domain/models/Company';
 
 import { required, isDataValid } from '../../../form/ui/validators';
-
-import { getFoundationDate } from '../../domain/models/Company';
 
 import { COMPANY_SHAPE } from '../constants';
 

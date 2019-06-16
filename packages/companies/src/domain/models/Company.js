@@ -1,8 +1,9 @@
-import cuid from 'cuid';
+import lensProp from 'ramda/es/lensProp';
+import view from 'ramda/es/view';
+
 import toISOString from '@logistics-calc/date-utils/src/toISOString';
 
 export const create = ({ name, foundationDate, charterCapital }) => ({
-  id: cuid(),
   charterCapital,
   foundationDate,
   lastUpdatedDate: null,
@@ -18,8 +19,8 @@ export const update = ({ name, foundationDate, charterCapital }, company) => ({
   name
 });
 
-export const getId = ({ id }) => id;
+export const getId = view(lensProp('_id'));
 
-export const getName = ({ name }) => name;
+export const getName = view(lensProp('name'));
 
-export const getFoundationDate = ({ foundationDate }) => foundationDate;
+export const getFoundationDate = view(lensProp('foundationDate'));

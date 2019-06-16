@@ -10,10 +10,11 @@ import Fab from '@material-ui/core/Fab/index';
 import Paper from '@material-ui/core/Paper/index';
 import AddIcon from '@material-ui/icons/Add';
 
+import { getId } from '@logistics-calc/companies/src/domain/models/Company';
+
 import { getByCompanyId } from '@logistics-calc/risks/src/domain/models/RisksCollection';
 
 import { COMPANY_SHAPE } from '../constants';
-import { getId } from '../../domain/models/Company';
 import CompaniesTableItem from './CompaniesTableItem';
 
 const styles = theme => ({

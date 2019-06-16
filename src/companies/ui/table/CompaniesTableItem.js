@@ -13,7 +13,11 @@ import formatDate from '@logistics-calc/date-utils/src/formatDate';
 import isHighRisk from '@logistics-calc/risks/src/domain/services/isHighRisk';
 import { getValue } from '@logistics-calc/risks/src/domain/models/Risk';
 
-import { getFoundationDate, getId, getName } from '../../domain/models/Company';
+import {
+  getFoundationDate,
+  getId,
+  getName
+} from '@logistics-calc/companies/src/domain/models/Company';
 
 const styles = {
   tableCellRisk: {
