@@ -109,7 +109,11 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
 
                   <PaymentForm
                     onSubmit={values => {
-                      const payment = createPayment(values);
+                      const payment = createPayment({
+                        date: new Date(values.date),
+                        amount: Number(values.amount),
+                        description: values.description
+                      });
                       onChange(append(payment, value));
                     }}
                   />

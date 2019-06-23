@@ -3,10 +3,12 @@ import construct from "ramda/es/construct";
 import view from "ramda/es/view";
 import lensProp from "ramda/es/lensProp";
 
+import toISOString from "@logistics-calc/date-utils/src/toISOString";
+
 function Payment({ date, amount, description }) {
   return {
     _id: cuid(),
-    date,
+    date: toISOString(date),
     amount,
     description,
   };

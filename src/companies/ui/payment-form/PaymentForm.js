@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 
-import { required, isDataValid } from '../../../form/ui/validators';
+import { required, isDataValid, isNumber } from '../../../form/ui/validators';
 
 export default function PaymentForm({ onSubmit }) {
   return (
@@ -36,7 +36,7 @@ export default function PaymentForm({ onSubmit }) {
             </Field>
           </Grid>
           <Grid item>
-            <Field name="amount" validate={required}>
+            <Field name="amount" validate={either(required, isNumber)}>
               {({ input, meta: { error, touched } }) => (
                 <TextField
                   {...input}
