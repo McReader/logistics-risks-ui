@@ -97,7 +97,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
             </Field>
           </Grid>
 
-          <Field name="paymentHistory">
+          <Field name="paymentHistory" defaultValue={[]}>
             {({ input: { value, onChange } }) => (
               <>
                 <Grid item>
@@ -106,7 +106,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
                   <PaymentForm
                     onSubmit={values => {
                       const payment = createPayment(values);
-                      onChange(append(payment, value || []));
+                      onChange(append(payment, value));
                     }}
                   />
                 </Grid>
