@@ -30,6 +30,8 @@ const RisksService = ({ risksStore }) => {
         await model.save(modelUrl)
       }
 
+      model.predict(tf.tensor2d([[5]], [1, 1]));
+
       const risk = await risksStore.getByCompanyId(companyId);
 
       const value = getRandomInt(10, 100);
