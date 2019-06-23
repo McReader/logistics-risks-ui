@@ -19,6 +19,8 @@ import {
   getName
 } from '@logistics-calc/companies/src/domain/models/Company';
 
+import Permit from '../../../priveleges/Permit';
+
 const styles = {
   tableCellRisk: {
     backgroundColor: ({ risk }) => {
@@ -52,14 +54,16 @@ function CompaniesTableItem({ classes, company, onRecalculate, risk }) {
             </IconButton>
           </Link>
         </Tooltip>
-        <Tooltip title="Recalculate">
-          <IconButton
-            aria-label="Recalculate"
-            onClick={() => onRecalculate(companyId)}
-          >
-            <RefreshIcon fontSize="small" />
-          </IconButton>
-        </Tooltip>
+        <Permit>
+          <Tooltip title="Recalculate">
+            <IconButton
+              aria-label="Recalculate"
+              onClick={() => onRecalculate(companyId)}
+            >
+              <RefreshIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </Permit>
       </TableCell>
     </TableRow>
   );

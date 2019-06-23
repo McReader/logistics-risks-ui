@@ -17,6 +17,7 @@ import {
 import { create as createPayment } from '@logistics-calc/companies/src/domain/models/Payment';
 
 import { required, isDataValid } from '../../../form/ui/validators';
+import Permit from '../../../priveleges/Permit';
 
 import PaymentHistory from '../payment-history/PaymentHistory';
 import PaymentForm from '../payment-form/PaymentForm';
@@ -104,20 +105,22 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
           <Field name="paymentHistory">
             {({ input: { value, onChange } }) => (
               <>
-                <Grid item>
-                  <Typography variant="caption">New payment</Typography>
+                <Permit>
+                  <Grid item>
+                    <Typography variant="caption">New payment</Typography>
 
-                  <PaymentForm
-                    onSubmit={values => {
-                      const payment = createPayment({
-                        date: new Date(values.date),
-                        amount: Number(values.amount),
-                        description: values.description
-                      });
-                      onChange(append(payment, value));
-                    }}
-                  />
-                </Grid>
+                    <PaymentForm
+                      onSubmit={values => {
+                        const payment = createPayment({
+                          date: new Date(values.date),
+                          amount: Number(values.amount),
+                          description: values.description
+                        });
+                        onChange(append(payment, value));
+                      }}
+                    />
+                  </Grid>
+                </Permit>
 
                 <Grid item>
                   <Typography variant="caption">Payment history</Typography>
@@ -132,16 +135,18 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
               <Grid item>
                 <Button type="reset">Cancel</Button>
               </Grid>
-              <Grid item>
-                <Button
-                  color="primary"
-                  disabled={submitting}
-                  type="submit"
-                  variant="contained"
-                >
-                  Submit
-                </Button>
-              </Grid>
+              <Permit>
+                <Grid item>
+                  <Button
+                    color="primary"
+                    disabled={submitting}
+                    type="submit"
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                </Grid>
+              </Permit>
             </Grid>
           </Grid>
         </Grid>

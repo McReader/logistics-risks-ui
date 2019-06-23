@@ -14,6 +14,8 @@ import { getId } from '@logistics-calc/companies/src/domain/models/Company';
 
 import { getByCompanyId } from '@logistics-calc/risks/src/domain/models/RisksCollection';
 
+import Permit from '../../../priveleges/Permit';
+
 import { COMPANY_SHAPE } from '../constants';
 import CompaniesTableItem from './CompaniesTableItem';
 
@@ -60,9 +62,11 @@ function CompaniesTable(props) {
           })}
         </TableBody>
       </Table>
-      <Fab className={classes.fab} color="primary" onClick={onAddButtonClick}>
-        <AddIcon />
-      </Fab>
+      <Permit>
+        <Fab className={classes.fab} color="primary" onClick={onAddButtonClick}>
+          <AddIcon />
+        </Fab>
+      </Permit>
     </Paper>
   );
 }
