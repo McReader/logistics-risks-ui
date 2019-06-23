@@ -43,11 +43,10 @@ function CompaniesTablePage({ history }) {
   };
 
   useEffect(() => {
-    fetchCompanies();
+    fetchCompanies().then(fetchRisks);
     risksService.subscribe(() => {
       fetchRisks();
     });
-    fetchRisks();
     return () => {
       risksService.unsubscribe();
     };
