@@ -5,8 +5,8 @@ import either from 'ramda/es/either';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
 
 import { required, isDataValid, isNumber } from '../../../form/ui/validators';
 
@@ -63,15 +63,14 @@ export default function PaymentForm({ onSubmit }) {
             </Field>
           </Grid>
           <Grid item>
-            <Button
+            <IconButton
               color="primary"
               disabled={submitting}
               onClick={handleSubmit}
-              size="small"
               variant="outlined"
             >
               <Add fontSize="small" />
-            </Button>
+            </IconButton>
           </Grid>
         </Grid>
       )}
