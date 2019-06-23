@@ -10,7 +10,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography/Typography';
 
 import formatDate from '@logistics-calc/date-utils/src/formatDate';
-import { getFoundationDate } from '@logistics-calc/companies/src/domain/models/Company';
+import {
+  getFoundationDate,
+  getPaymentHistory
+} from '@logistics-calc/companies/src/domain/models/Company';
 import { create as createPayment } from '@logistics-calc/companies/src/domain/models/Payment';
 
 import { required, isDataValid } from '../../../form/ui/validators';
@@ -36,7 +39,8 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
 
     return {
       ...company,
-      foundationDate: formatDate(getFoundationDate(company))
+      foundationDate: formatDate(getFoundationDate(company)),
+      paymentHistory: getPaymentHistory(company)
     };
   }, [company]);
 
@@ -97,7 +101,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
             </Field>
           </Grid>
 
-          <Field name="paymentHistory" defaultValue={[]}>
+          <Field name="paymentHistory">
             {({ input: { value, onChange } }) => (
               <>
                 <Grid item>

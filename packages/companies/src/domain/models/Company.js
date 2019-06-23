@@ -19,6 +19,7 @@ export const update = ({ name, foundationDate, charterCapital, paymentHistory },
   charterCapital,
   foundationDate,
   lastUpdatedDate: toISOString(new Date()),
+  paymentHistory,
 });
 
 export const getId = view(lensProp('_id'));
