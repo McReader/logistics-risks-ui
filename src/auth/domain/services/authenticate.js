@@ -1,19 +1,25 @@
 import UserNotFoundError from '../errors/UserNotFoundError';
-import IncorrectPasswordError from "../errors/IncorrectPasswordError";
+import IncorrectPasswordError from '../errors/IncorrectPasswordError';
 
 function authenticate(values) {
   return new Promise((resolve, reject) => {
     const { login, password } = values;
 
-    if (login !== "admin") {
+    if (login !== 'admin' && login !== 'user') {
       reject(new UserNotFoundError(login));
       return;
-    } else if (password !== "admin") {
+    }
+
+    if (
+      (login === 'admin' && password !== 'admin') ||
+      (login === 'user' && password !== 'user')
+    ) {
       reject(new IncorrectPasswordError());
       return;
     }
 
     localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('isAdmin', login === 'admin');
 
     resolve();
   });
