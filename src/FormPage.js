@@ -27,6 +27,7 @@ function FormPage({ children, classes, isLoading, title, ...restProps }) {
         className={classes.formContainer}
         container
         direction="column"
+        wrap="nowrap"
         spacing={40}
       >
         <Grid component={Typography} item variant="title">

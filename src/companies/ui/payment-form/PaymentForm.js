@@ -14,7 +14,13 @@ export default function PaymentForm({ onSubmit }) {
   return (
     <Form onSubmit={onSubmit}>
       {({ handleSubmit, submitting }) => (
-        <Grid alignItems="center" container direction="row" spacing={16}>
+        <Grid
+          alignItems="center"
+          container
+          direction="row"
+          spacing={32}
+          wrap="nowrap"
+        >
           <Grid item>
             <Field name="date" validate={either(required, isDataValid)}>
               {({ input, meta: { error, touched } }) => (
