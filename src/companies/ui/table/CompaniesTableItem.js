@@ -21,28 +21,18 @@ import {
 
 import Permit from '../../../priveleges/Permit';
 
-const useStyles = makeStyles({
-  body: {
-    backgroundColor: ({ risk }) => {
-      if (!risk) {
-        return null;
-      }
-
-      return isHighRisk(risk) ? 'red' : 'green';
-    }
-  }
-});
-
 function CompaniesTableItem(props) {
   const { company, onRecalculate, risk } = props;
   const companyId = getId(company);
-  const classes = useStyles(props);
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
-        {getName(company)}
-      </TableCell>
-      <TableCell align="center" classes={classes}>
+      <TableCell>{getName(company)}</TableCell>
+      <TableCell
+        align="center"
+        style={{
+          backgroundColor: risk ? (isHighRisk(risk) ? 'red' : 'green') : null
+        }}
+      >
         {risk ? `${getValue(risk)}%` : '-'}
       </TableCell>
       <TableCell align="center">
