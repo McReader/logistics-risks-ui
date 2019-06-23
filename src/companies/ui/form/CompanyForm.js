@@ -2,14 +2,21 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 
+import append from 'ramda/es/append';
+
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography/Typography';
 
 import formatDate from '@logistics-calc/date-utils/src/formatDate';
 import { getFoundationDate } from '@logistics-calc/companies/src/domain/models/Company';
+import { create as createPayment } from '@logistics-calc/companies/src/domain/models/Payment';
 
 import { required, isDataValid } from '../../../form/ui/validators';
+
+import PaymentHistory from '../payment-history/PaymentHistory';
+import PaymentForm from '../payment-form/PaymentForm';
 
 import { COMPANY_SHAPE } from '../constants';
 
@@ -89,6 +96,29 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
               )}
             </Field>
           </Grid>
+
+          <Field name="paymentHistory">
+            {({ input: { value, onChange } }) => (
+              <>
+                <Grid item>
+                  <Typography variant="caption">New payment</Typography>
+
+                  <PaymentForm
+                    onSubmit={values => {
+                      const payment = createPayment(values);
+                      onChange(append(payment, value || []));
+                    }}
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Typography variant="caption">Payment history</Typography>
+                  <PaymentHistory paymentHistory={value} />
+                </Grid>
+              </>
+            )}
+          </Field>
+
           <Grid item>
             <Grid container justify="flex-end" spacing={16}>
               <Grid item>

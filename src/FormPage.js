@@ -1,20 +1,19 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import withStyles from "@material-ui/core/styles/withStyles";
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import PageWithAppBar from "./PageWithAppBar";
-
+import PageWithAppBar from './PageWithAppBar';
 
 const styles = ({ spacing }) => ({
   gridContainer: {
     justifyContent: 'center',
-    paddingTop: spacing.unit * 4,
+    paddingTop: spacing.unit * 4
   },
   formContainer: {
     flex: 1,
-    maxWidth: '360px',
-  },
+    maxWidth: '700px'
+  }
 });
 
 function FormPage({ children, classes, isLoading, title, ...restProps }) {
@@ -30,16 +29,10 @@ function FormPage({ children, classes, isLoading, title, ...restProps }) {
         direction="column"
         spacing={40}
       >
-        <Grid
-          component={Typography}
-          item
-          variant="title"
-        >
+        <Grid component={Typography} item variant="title">
           {title}
         </Grid>
-        <Grid item>
-          {isLoading ? null : children}
-        </Grid>
+        <Grid item>{isLoading ? null : children}</Grid>
       </Grid>
     </PageWithAppBar>
   );
