@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/logistics-risks-ui/precache-manifest.ec7ad6f766df0e690aad35fc5f2ea705.js"
+  "/logistics-risks-ui/precache-manifest.df054cb2ba50ab5b22811c2190c57e31.js"
 );
 
 workbox.clientsClaim();
