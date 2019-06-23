@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import TableCell from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
 import { Link } from 'react-router-dom';
@@ -21,8 +21,8 @@ import {
 
 import Permit from '../../../priveleges/Permit';
 
-const styles = {
-  tableCellRisk: {
+const useStyles = makeStyles({
+  body: {
     backgroundColor: ({ risk }) => {
       if (!risk) {
         return null;
@@ -31,16 +31,18 @@ const styles = {
       return isHighRisk(risk) ? 'red' : 'green';
     }
   }
-};
+});
 
-function CompaniesTableItem({ classes, company, onRecalculate, risk }) {
+function CompaniesTableItem(props) {
+  const { company, onRecalculate, risk } = props;
   const companyId = getId(company);
+  const classes = useStyles(props);
   return (
     <TableRow>
       <TableCell component="th" scope="row">
         {getName(company)}
       </TableCell>
-      <TableCell align="center" classes={{ root: classes.tableCellRisk }}>
+      <TableCell align="center" classes={classes}>
         {risk ? `${getValue(risk)}%` : '-'}
       </TableCell>
       <TableCell align="center">
@@ -69,4 +71,4 @@ function CompaniesTableItem({ classes, company, onRecalculate, risk }) {
   );
 }
 
-export default withStyles(styles)(CompaniesTableItem);
+export default CompaniesTableItem;
