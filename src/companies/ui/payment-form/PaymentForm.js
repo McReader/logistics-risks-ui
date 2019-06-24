@@ -22,6 +22,19 @@ export default function PaymentForm({ onSubmit }) {
           wrap="nowrap"
         >
           <Grid item>
+            <Field name="plannedDate" validate={either(required, isDataValid)}>
+              {({ input, meta: { error, touched } }) => (
+                <TextField
+                  {...input}
+                  error={touched && Boolean(error)}
+                  fullWidth
+                  helperText={touched && error}
+                  label="Planned date"
+                />
+              )}
+            </Field>
+          </Grid>
+          <Grid item>
             <Field name="date" validate={either(required, isDataValid)}>
               {({ input, meta: { error, touched } }) => (
                 <TextField
@@ -45,19 +58,6 @@ export default function PaymentForm({ onSubmit }) {
                   helperText={touched && error}
                   label="Amount"
                   placeholder="1000"
-                />
-              )}
-            </Field>
-          </Grid>
-          <Grid item>
-            <Field name="description" validate={required}>
-              {({ input, meta: { error, touched } }) => (
-                <TextField
-                  {...input}
-                  error={touched && Boolean(error)}
-                  fullWidth
-                  helperText={touched && error}
-                  label="Description"
                 />
               )}
             </Field>

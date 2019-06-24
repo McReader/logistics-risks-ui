@@ -12,7 +12,7 @@ import TableBody from '@material-ui/core/es/TableBody/TableBody';
 import {
   getAmount,
   getDate,
-  getDescription,
+  getPlannedDate,
   getId
 } from '@logistics-calc/companies/src/domain/models/Payment';
 
@@ -21,18 +21,18 @@ export default function PaymentHistory({ paymentHistory }) {
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell align="center">Date</TableCell>
+          <TableCell align="center">Planned date</TableCell>
+          <TableCell align="center">Actual date</TableCell>
           <TableCell align="center">Amount</TableCell>
-          <TableCell align="center">Description</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {map(
           row => (
             <TableRow key={getId(row)}>
+              <TableCell align="center">{getPlannedDate(row)}</TableCell>
               <TableCell align="center">{getDate(row)}</TableCell>
               <TableCell align="center">{getAmount(row)}</TableCell>
-              <TableCell align="center">{getDescription(row)}</TableCell>
             </TableRow>
           ),
           paymentHistory

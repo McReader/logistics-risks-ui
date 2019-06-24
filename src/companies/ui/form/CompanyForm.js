@@ -114,7 +114,7 @@ export default function CompanyForm({ company, onReset, onSubmit }) {
                         const payment = createPayment({
                           date: new Date(values.date),
                           amount: Number(values.amount),
-                          description: values.description
+                          plannedDate: new Date(values.plannedDate)
                         });
                         onChange(append(payment, value));
                       }}
