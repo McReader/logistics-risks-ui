@@ -2,7 +2,7 @@
   "name": "logistics-risks-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mcreader.github.io/logistics-risks-ui",
+  "homepage": "http://angelinarik.github.io/logistics-risks-ui",
   "workspaces": [
     "packages/*"
   ],
