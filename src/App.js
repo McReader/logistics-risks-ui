@@ -15,8 +15,7 @@ import AppContext from './AppContext';
 
 import './App.css';
 
-const dbUrl =
-  'https://609ce380-698c-48ed-a70f-6eefc8446f54-bluemix:ee5cf67260942c15b000fceeede84f7762628d5fbdf85a83d26bf4225656e333@609ce380-698c-48ed-a70f-6eefc8446f54-bluemix.cloudantnosqldb.appdomain.cloud';
+const dbUrl = '<<hidden>>';
 
 const companiesStore = CompaniesStore({ dbUrl });
 const companiesService = CompaniesService({ companiesStore });
